@@ -1,34 +1,34 @@
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { fetchJson } from "../lib/api";
-import Button from "../components/Button";
-import Field from "../components/Field";
-import Input from "../components/Input";
-import Page from "../components/Page";
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { fetchJson } from '../lib/api'
+import Button from '../components/Button'
+import Field from '../components/Field'
+import Input from '../components/Input'
+import Page from '../components/Page'
 
 export default function SignInPage() {
-  const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [status, setStatus] = useState({ loading: false, error: false });
+  const router = useRouter()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [status, setStatus] = useState({ loading: false, error: false })
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    setStatus({ loading: true, error: false });
+    event.preventDefault()
+    setStatus({ loading: true, error: false })
 
     try {
       const response = await fetchJson(`/api/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
-      });
-      setStatus({ loading: false, error: false });
-      console.log("sign in:", response);
-      router.push("/");
+      })
+      setStatus({ loading: false, error: false })
+      console.log('sign in:', response)
+      router.push('/')
     } catch (err) {
-      setStatus({ loading: false, error: true });
+      setStatus({ loading: false, error: true })
     }
-  };
+  }
 
   return (
     <Page title="Sign In">
@@ -57,5 +57,5 @@ export default function SignInPage() {
         )}
       </form>
     </Page>
-  );
+  )
 }

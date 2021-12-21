@@ -1,26 +1,16 @@
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { fetchJson } from "../lib/api";
+import Link from 'next/link'
+import { useUser } from '../hooks/user'
+import { fetchJson } from '../lib/api'
 
 function NavBar() {
-  const [user, setUser] = useState();
-  useEffect(() => {
-    (async () => {
-      try {
-        const user = await fetchJson("/api/user");
-        setUser(user);
-      } catch (err) {
-        // not signed in
-      }
-    })();
-  }, []);
+  const user = useUser()
 
   const handleSignOut = async () => {
-    await fetchJson("/api/logout");
-    setUser(undefined);
-  };
+    await fetchJson('/api/logout')
+    // FIXME setUser(undefined)
+  }
 
-  console.log("[NavBar] user:", user);
+  console.log('[NavBar] user:', user)
   return (
     <nav className="px-2 py-1">
       <ul className="flex text-sm gap-2">
@@ -46,7 +36,7 @@ function NavBar() {
         )}
       </ul>
     </nav>
-  );
+  )
 }
 
-export default NavBar;
+export default NavBar
